@@ -18,17 +18,17 @@ class App extends Component {
   }
 
   loadAdditionalCars() {
-    var currentCars = { ...this.state.cars };
-    var newCars = Object.assign(currentCars, additionalCars);
+    const currentCars = { ...this.state.cars };
+    const newCars = Object.assign(currentCars, additionalCars);
     this.setState({ cars: newCars });
   }
 
   addCarToGallery(car) {
-    var ts = Date.now();
-    var newCar = {};
+    const ts = Date.now();
+    const newCar = {};
     newCar['car' + ts] = car;
-    var currentCars = { ...this.state.cars };
-    var newCars = Object.assign(currentCars, newCar);
+    const currentCars = { ...this.state.cars };
+    const newCars = Object.assign(currentCars, newCar);
     this.setState({ cars: newCars });
   }
 

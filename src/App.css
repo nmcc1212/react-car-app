@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -28,27 +29,27 @@
 * {
   box-sizing: border-box;
 }
- 
+
 .cars {
   display: flex;
   flex-wrap: wrap;
   margin: 30px 5%;
 }
- 
+
 .App-header h2 {
   margin: 0;
 }
- 
+
 .add-cars {
   text-align: center;
 }
- 
+
 .add-cars button {
   font-size: 16px;
   padding: 8px;
   margin: 0 10px 30px 10px;
 }
- 
+
 .car {
   padding: 5px 25px 10px 25px;
   max-width: 24%;
@@ -58,19 +59,19 @@
 }
 
 /* car form styles */
- 
+
 .car-form {
   width: 250px;
   margin: 0 auto;
 }
- 
+
 .car-form input, .car-form textarea {
   width: 250px;
   font-size:14px;
   padding: 5px;
   margin: 5px;
 }
- 
+
 .car-form button {
   font-size: 16px;
   padding: 4px;
