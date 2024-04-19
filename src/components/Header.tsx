@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
-class Header extends Component {
+interface HeaderProps {
+    text: string;
+}
+class Header extends Component <HeaderProps> {
     render() {
         return (
             <header className="App-header">

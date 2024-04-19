@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import '../App.css';
 import Header from './Header.js';
 import Car from './Car'
-import { initialCars } from '../cars';
-import { additionalCars } from '../cars';
+import { initialCars, additionalCars, CarType, InitialCarsType } from '../cars';
 import AddCar from './AddCar'
 
 
-class App extends Component {
-  constructor() {
-    super();
+class App extends Component<{}, { cars: InitialCarsType }> {
+  constructor(props: {}) {
+    super(props);
     this.state = {
       cars: initialCars
     };
@@ -19,13 +18,14 @@ class App extends Component {
 
   loadAdditionalCars() {
     const currentCars = { ...this.state.cars };
+
     const newCars = Object.assign(currentCars, additionalCars);
     this.setState({ cars: newCars });
   }
 
-  addCarToGallery(car) {
+  addCarToGallery(car: CarType) {
     const ts = Date.now();
-    const newCar = {};
+    const newCar: { [key: string]: CarType } = {};
     newCar['car' + ts] = car;
     const currentCars = { ...this.state.cars };
     const newCars = Object.assign(currentCars, newCar);
