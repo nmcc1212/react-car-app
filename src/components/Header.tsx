@@ -1,16 +1,15 @@
-import { Component } from 'react';
+import React from 'react';
 
 interface HeaderProps {
-    text: string;
+  text: string;
 }
-class Header extends Component <HeaderProps> {
-    render() {
-        return (
-            <header className="App-header">
-                <h1 className="App-title">{this.props.text}</h1>
-            </header>
-        );
-    }
+
+const Header: React.FC<HeaderProps> = ({ text }) => {
+  return (
+    <header className="App-header">
+      <h1 className="App-title">{text}</h1>
+    </header>
+  );
 }
 
 export default Header;

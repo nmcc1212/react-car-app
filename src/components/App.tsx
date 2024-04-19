@@ -1,57 +1,45 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import Header from './Header.js';
 import Car from './Car'
 import { initialCars, additionalCars, CarType, InitialCarsType } from '../cars';
 import AddCar from './AddCar'
 
+const App: React.FC = () => {
+  const [cars, setCars] = useState<InitialCarsType>(initialCars);
 
-class App extends Component<{}, { cars: InitialCarsType }> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      cars: initialCars
-    };
-    this.loadAdditionalCars = this.loadAdditionalCars.bind(this);
-    this.addCarToGallery = this.addCarToGallery.bind(this);
-  }
-
-  loadAdditionalCars() {
-    const currentCars = { ...this.state.cars };
-
+  const loadAdditionalCars = () => {
+    const currentCars = { ...cars };
     const newCars = Object.assign(currentCars, additionalCars);
-    this.setState({ cars: newCars });
+    setCars(newCars);
   }
 
-  addCarToGallery(car: CarType) {
+  const addCarToGallery = (car: CarType) => {
     const ts = Date.now();
     const newCar: { [key: string]: CarType } = {};
     newCar['car' + ts] = car;
-    const currentCars = { ...this.state.cars };
+    const currentCars = { ...cars };
     const newCars = Object.assign(currentCars, newCar);
-    this.setState({ cars: newCars });
+    setCars(newCars);
   }
 
-  render() {
-    return (
-      <div className="App">
-        <Header text="Vehicle Quick Info" />
-        <p className="App-intro">
-          Some information about popular SUV and Crossover models.
-        </p>
-        <div className="cars">
-          {
-            Object
-              .keys(this.state.cars)
-              .map(key => <Car key={key} meta={this.state.cars[key]} />)
-          }
-        </div>
-        <div className="add-cars"><button onClick={this.loadAdditionalCars}>Load more...</button></div>
-        <AddCar addCar={this.addCarToGallery} />
-
+  return (
+    <div className="App">
+      <Header text="Vehicle Quick Info" />
+      <p className="App-intro">
+        Some information about popular SUV and Crossover models.
+      </p>
+      <div className="cars">
+        {
+          Object
+            .keys(cars)
+            .map(key => <Car key={key} meta={cars[key]} />)
+        }
       </div>
-    );
-  }
+      <div className="add-cars"><button onClick={loadAdditionalCars}>Load more...</button></div>
+      <AddCar addCar={addCarToGallery} />
+    </div>
+  );
 }
 
 export default App;
