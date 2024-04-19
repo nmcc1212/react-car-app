@@ -1,24 +1,22 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { CarType } from '../cars';
 
 interface AddCarProps {
     addCar: (car: CarType) => void;
 }
 
-interface AddCarState extends CarType {}
-
-class AddCar extends Component <AddCarProps, AddCarState> {
-    state: AddCarState = {
+const AddCar: React.FC<AddCarProps> = ({ addCar }) => {
+    const [car, setCar] = useState<CarType>({
         model: '',
         picture: '',
         blurb: '',
         engine: ''
-    };
+    });
 
-    addNewCar(e: React.FormEvent<HTMLFormElement>) {
+    const addNewCar = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        this.props.addCar(this.state);
-        this.setState({
+        addCar(car);
+        setCar({
             model: '',
             picture: '',
             blurb: '',
@@ -26,23 +24,21 @@ class AddCar extends Component <AddCarProps, AddCarState> {
         });
     }
 
-    handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        this.setState({ [e.target.name]: e.target.value } as Pick<AddCarState, keyof AddCarState>);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setCar({ ...car, [e.target.name]: e.target.value });
     }
 
-    render() {
-        return (
-            <form className="car-form" onSubmit={(e) => this.addNewCar(e)}>
-                <p>Add a Car</p>
-                <input name="model" value={this.state.model} onChange={this.handleChange} type="text" placeholder="Model" />
-                <input name="picture" value={this.state.picture} onChange={this.handleChange} type="text" placeholder="Picture" />
-                <input name="engine" value={this.state.engine} onChange={this.handleChange} type="text" placeholder="Engine" />
-                <textarea name="blurb" value={this.state.blurb} onChange={this.handleChange} placeholder="Description">
-                </textarea>
-                <button type="submit">Add Car</button>
-            </form>
-        );
-    }
+    return (
+        <form className="car-form" onSubmit={addNewCar}>
+            <p>Add a Car</p>
+            <input name="model" value={car.model} onChange={handleChange} type="text" placeholder="Model" />
+            <input name="picture" value={car.picture} onChange={handleChange} type="text" placeholder="Picture" />
+            <input name="engine" value={car.engine} onChange={handleChange} type="text" placeholder="Engine" />
+            <textarea name="blurb" value={car.blurb} onChange={handleChange} placeholder="Description">
+            </textarea>
+            <button type="submit">Add Car</button>
+        </form>
+    );
 }
 
 export default AddCar;
